@@ -10,8 +10,6 @@ btn_play.addEventListener('click',() => {
         alert('ATTENZIONE\nSeleziona una difficoltà di gioco!');
         location.reload();
     }
-
-    resetGrid();
     gridGenerator(select_difficulty);
 })
 
@@ -19,10 +17,13 @@ btn_play.addEventListener('click',() => {
 function gridGenerator (difficulty){
 
     const gridElement = document.querySelector('.grid');
-    //impostazione background color grid
-    gridElement.style.background = '#f0b623';
+    //eliminazione border/padding color grid
+    gridElement.style.border = '0';
+    gridElement.style.padding = '0';
     //aggiunta animazione grid
     gridElement.classList.add('animation_grid');
+    //cancellazione griglia
+    gridElement.innerHTML = '';
     let colonne_righe;
 
     //impostazione colonne-righe
@@ -44,7 +45,21 @@ function gridGenerator (difficulty){
     //totale celle
     const square_tot = Math.pow(colonne_righe, 2);
 
-    //creazione deglle celle
+    //generare 16 bombe casuale
+    const bomb = [];
+
+    while(bomb.length < 16){
+        //genero numero random
+        const numberBomb = getRandom(1, square_tot);
+        //controllo se è presente nel array
+        if(!bomb.includes(numberBomb)){
+            bomb.push(numberBomb);
+        }
+    }
+    
+    console.log(bomb);
+
+    //creazione delle celle
     for(let i = 1; i <= square_tot; i++){
 
         const square = document.createElement('div');
@@ -52,38 +67,31 @@ function gridGenerator (difficulty){
         square.classList.add('square');
         //impostazioni dimensione cella
         square.style.width = `calc(100% / ${colonne_righe})`;
-        square.append(i);
+
+        if(bomb.includes(i)){
+            square.append('**');
+        }else{
+            square.append(i);
+        }
+
         gridElement.append(square);
-
-        /* square.addEventListener('click', change_color); */
     }
-
-
-
-    gridElement.addEventListener('click', gridCallBack)
+    /* gridElement.addEventListener('click', gridCallBack) */
 }
 
 
-//funzione reset griglia
-const resetGrid = () =>{
-    const gridElement = document.querySelector('.grid');
-    gridElement.innerHTML = '';
+//funzione numero random
+function getRandom(min, max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 
-/* //funzione listener cella
-function change_color (){
-    const element = this;
-    element.classList.add('selected');
-    element.removeEventListener('clic', change_color);
-} */
 
 
-function gridCallBack(event){
+/* function gridCallBack(event){
 
     console.log(event.target);
     const element = event.target.closest('.square');
     console.log(element)
-    /* element.classList.add('selected'); */
-}
-
+ element.classList.add('selected');
+} */
