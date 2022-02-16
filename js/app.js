@@ -9,7 +9,10 @@ btn_play.addEventListener('click',() => {
     if(select_difficulty === ''){
         alert('ATTENZIONE\nSeleziona una difficoltà di gioco!');
         location.reload();
+        return false;
     }
+
+    resetGrid();
     gridGenerator(select_difficulty);
 })
 
@@ -17,13 +20,11 @@ btn_play.addEventListener('click',() => {
 function gridGenerator (difficulty){
 
     const gridElement = document.querySelector('.grid');
-    //eliminazione border/padding color grid
+    //impostazione border e padding color grid
     gridElement.style.border = '0';
     gridElement.style.padding = '0';
     //aggiunta animazione grid
     gridElement.classList.add('animation_grid');
-    //cancellazione griglia
-    gridElement.innerHTML = '';
     let colonne_righe;
 
     //impostazione colonne-righe
@@ -45,21 +46,16 @@ function gridGenerator (difficulty){
     //totale celle
     const square_tot = Math.pow(colonne_righe, 2);
 
-    //generare 16 bombe casuale
     const bomb = [];
 
     while(bomb.length < 16){
-        //genero numero random
-        const numberBomb = getRandom(1, square_tot);
-        //controllo se è presente nel array
-        if(!bomb.includes(numberBomb)){
-            bomb.push(numberBomb);
+        const numbBomb = getRandom(1, square_tot);
+        if(!bomb.includes(numbBomb)){
+            bomb.push(numbBomb);
         }
     }
-    
-    console.log(bomb);
 
-    //creazione delle celle
+    //creazione deglle celle
     for(let i = 1; i <= square_tot; i++){
 
         const square = document.createElement('div');
@@ -76,11 +72,23 @@ function gridGenerator (difficulty){
 
         gridElement.append(square);
     }
-    /* gridElement.addEventListener('click', gridCallBack) */
+
+
+
+    
+    gridElement.addEventListener('click', gridCallBack);
+    console.log(bomb);
 }
 
 
-//funzione numero random
+//funzione reset griglia
+const resetGrid = () =>{
+    const gridElement = document.querySelector('.grid');
+    gridElement.innerHTML = '';
+}
+
+
+//funzione random
 function getRandom(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -88,10 +96,14 @@ function getRandom(min, max){
 
 
 
-/* function gridCallBack(event){
 
+
+
+
+function gridCallBack(event){
     console.log(event.target);
     const element = event.target.closest('.square');
     console.log(element)
- element.classList.add('selected');
-} */
+    element.classList.add('selected');
+}
+

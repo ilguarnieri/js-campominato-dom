@@ -203,6 +203,10 @@ footer{
 
 .selected{
     background-color: #7ca7ff;
+    border-top: 3px solid rgb(123,123,123);
+    border-left: 3px solid rgb(123,123,123);
+    border-bottom: 0;
+    border-right: 0;
 }
 
 
