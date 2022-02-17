@@ -8,20 +8,25 @@ function startGame(){
     console.clear();
 
     //modalità gioco
-    const difficulty = modeGame();
+    const selectMode = modeGame();
 
     //generazione grid
-    generateGrid(difficulty);
+    generateGrid(selectMode);
 }
 
 
 //reset contenuto grid
 function resetGrid(){
-    const gridElement = document.querySelector('.grid');
-    gridElement.innerHTML = '';
+
+    const grid_wrapper = document.querySelector('.grid-wrapper');
+    grid_wrapper.innerHTML = '';
     //impostazione border padding grid
-    gridElement.style.border = '0';
-    gridElement.style.padding = '0';
+    grid_wrapper.style.border = '0';
+    grid_wrapper.style.padding = '0';    
+    
+    const gridElement = document.createElement('div');
+    gridElement.classList.add('grid');
+    grid_wrapper.append(gridElement);
 }
 
 
@@ -38,10 +43,27 @@ function getRandom(min, max){
 }
 
 
+//generatore bombe
+function generateBombs(totalBombs, min, max){
+
+    const arrayBombs = [];
+    do {
+        const numbBomb = getRandom(min, max);
+        if(!arrayBombs.includes(numbBomb)){
+            arrayBombs.push(numbBomb);
+        }
+    }while(arrayBombs.length < totalBombs);
+
+    //ordinamento array
+    arrayBombs.sort((a, b) => a - b);
+    return arrayBombs;
+}
+
+
 //generazione grid
 function generateGrid(difficulty){
     const gridElement = document.querySelector('.grid');
-    let colums_rows, bombs;
+    let colums_rows, bombs, score = 0;
 
     //impostazione colonne-righe
     switch(difficulty){
@@ -65,7 +87,8 @@ function generateGrid(difficulty){
     const square_tot = Math.pow(colums_rows, 2);
 
     //generazione bombe
-    bombs = generaBombe(16, 1, square_tot);
+    bombs = generateBombs(16, 1, square_tot);
+    console.log(bombs);
 
     //creazione deglle celle
     for(let i = 1; i <= square_tot; i++){
@@ -85,32 +108,31 @@ function generateGrid(difficulty){
     function gridCallBack(event){
         const element = event.target.closest('.square');
         const numberSquare = parseInt(element.dataset.number);
+        console.log(`gridCALL ${bombs}`);
 
         if(bombs.includes(numberSquare)){
             element.classList.add('red');
+
+            //game over
         }else{
             element.classList.add('selected');
+            score++;
+            //incremento score
         }
     }
-    
 
     gridElement.addEventListener('click', gridCallBack);
+
 }
 
-//generatore bombe
-function generaBombe(totalBombs, min, max){
 
-    const arrayBombs = [];
-    do {
-        const numbBomb = getRandom(min, max);
-        if(!arrayBombs.includes(numbBomb)){
-            arrayBombs.push(numbBomb);
-        }
-    }while(arrayBombs.length < totalBombs);
+//GAME OVER
+function gameOver(score){
+    console.log(`'Hai perso totalizzando ${score}`);
+}
 
-    //ordinamento array
-    arrayBombs.sort((a, b) => a - b);
-    console.log(arrayBombs);
 
-    return arrayBombs;
+//USER WIND
+function youWin(score){
+    console.log(`'Hai vinto totalizzando ${score}`);
 }

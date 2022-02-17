@@ -104,16 +104,25 @@ header{
 /*********** MAIN ***********/
 main {
     height: calc(100vh - 100px - 50px);
-}
-
-.grid-wrapper{
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.grid-wrapper{
+    max-width: 500px;
+    background-color: #c6c6c6;
+    border-bottom: 6px solid rgb(123,123,123);
+    border-right: 6px solid rgb(123,123,123);
+    border-top:  6px solid rgb(240,240,240);
+    border-left:  6px solid rgb(240,240,240);
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px;
     animation: start-grid 1.5s ease-out;
     user-select: none;
     overflow-x:auto;
+    box-shadow: 0 0 20px 10px rgba(0,0,0,0.1);
 }
 
 @keyframes start-grid {
@@ -126,19 +135,9 @@ main {
 }
 
 .grid{
-    max-width: 500px;
-    background-color: #c6c6c6;
-    border-bottom: 6px solid rgb(123,123,123);
-    border-right: 6px solid rgb(123,123,123);
-    border-top:  6px solid rgb(240,240,240);
-    border-left:  6px solid rgb(240,240,240);
-    font-size: 13px;
-    font-weight: bold;
-    padding: 7px;
     display: flex;
     text-align: center;
-    flex-wrap: wrap;
-    box-shadow: 0 0 20px 10px rgba(0,0,0,0.1);
+    flex-wrap: wrap;    
 }
 
 .square{
@@ -202,11 +201,25 @@ footer{
 }
 
 .selected{
-    background-color: #7ca7ff;    
+    background-color: #7ca7ff;
+    padding: 9px;
+    border-bottom: 0;
+    border-right: 0;
+    border-top:  3px solid rgb(123,123,123);
+    border-left:  3px solid rgb(123,123,123);
 }
 
 .red{
-    background-color: red;    
+    background-image: url(../img/bombs.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: red;
+    padding: 9px;
+    border-bottom: 0;
+    border-right: 0;
+    border-top:  3px solid rgb(123,123,123);
+    border-left:  3px solid rgb(123,123,123);
 }
 
 
