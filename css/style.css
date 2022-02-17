@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "Kemco";
+    src: url("Kemco.ttf");
+
+    /* font-family: 'Kemco', Arial, Helvetica, sans-serif; */
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -201,7 +208,7 @@ footer{
 }
 
 .selected{
-    background-color: #7ca7ff;
+    background-color: #7ee8ff;
     padding: 9px;
     border-bottom: 0;
     border-right: 0;
@@ -214,12 +221,20 @@ footer{
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    background-color: red;
+    background-color: #f00;
     padding: 9px;
     border-bottom: 0;
     border-right: 0;
     border-top:  3px solid rgb(123,123,123);
     border-left:  3px solid rgb(123,123,123);
+}
+
+
+.x_bomb{
+    background-image: url(../img/flag.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 

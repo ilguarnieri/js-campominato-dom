@@ -64,6 +64,7 @@ function generateBombs(totalBombs, min, max){
 function generateGrid(difficulty){
     const gridElement = document.querySelector('.grid');
     let colums_rows, bombs, score = 0;
+    const totBombs = 16;
 
     //impostazione colonne-righe
     switch(difficulty){
@@ -87,7 +88,7 @@ function generateGrid(difficulty){
     const square_tot = Math.pow(colums_rows, 2);
 
     //generazione bombe
-    bombs = generateBombs(16, 1, square_tot);
+    bombs = generateBombs(totBombs, 1, square_tot);
     console.log(bombs);
 
     //creazione deglle celle
@@ -101,7 +102,7 @@ function generateGrid(difficulty){
         //inserimento numero cella
         square.dataset.number = i;
         
-        gridElement.append(square);        
+        gridElement.append(square);
     }
        
 
@@ -121,16 +122,31 @@ function generateGrid(difficulty){
             //ricerca di tutte le bombe            
             for(let i = 1; i <= square_tot; i++){
                 if(bombs.includes(i)){                    
-                    allBombs[i].classList.add('bomb');
+                    allBombs[i - 1].classList.add('bomb');
                 }
             }
 
             //blocco listener
             gridElement.removeEventListener('click', gridCallBack);
+
         }else{
             //casella libera
             element.classList.add('selected');
             score++;
+            if(score === square_tot - totBombs){
+
+                console.log(`'Hai perso totalizzando ${score}`);
+
+                //ricerca di tutte le bombe
+                for(let i = 1; i <= square_tot; i++){
+                    if(bombs.includes(i)){                    
+                        allBombs[i - 1].classList.add('x_bomb');
+                    }
+                }
+
+                //blocco listener
+                gridElement.removeEventListener('click', gridCallBack);
+            }
         }
     }
 
