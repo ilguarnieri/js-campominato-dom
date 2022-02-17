@@ -1,11 +1,15 @@
 
 const btn_play = document.querySelector('.btn_play');
+const score_wrapper = document.querySelector('.score-wrapper');
 btn_play.addEventListener('click', startGame);
 
 function startGame(){
     //reset grid
     resetGrid();
     console.clear();
+    score_wrapper.classList.remove('d-none');
+    score_wrapper.classList.add('animation_score');
+   
 
     //modalità gioco
     const selectMode = modeGame();
@@ -19,14 +23,23 @@ function startGame(){
 function resetGrid(){
 
     const grid_wrapper = document.querySelector('.grid-wrapper');
+    const user_score = document.querySelector('.user_score');
+    const score_smile = document.querySelector('.score_smile');
+
     grid_wrapper.innerHTML = '';
+    user_score.innerHTML = '';
     //impostazione border padding grid
     grid_wrapper.style.border = '0';
-    grid_wrapper.style.padding = '0';    
+    grid_wrapper.style.padding = '0';
+
+    //rimpostazione emoji
+    score_smile.classList.remove('dizzy');
+    score_smile.classList.add('emoji');
     
     const gridElement = document.createElement('div');
     gridElement.classList.add('grid');
     grid_wrapper.append(gridElement);
+    grid_wrapper.classList.add('animation_grid');
 }
 
 
@@ -111,10 +124,14 @@ function generateGrid(difficulty){
         const element = event.target.closest('.square');
         const numberSquare = parseInt(element.dataset.number);
         const allBombs = document.getElementsByClassName('square');
+        const user_score = document.querySelector('.user_score');
+        const score_smile = document.querySelector('.score_smile');
 
         //trovo la bomba
         if(bombs.includes(numberSquare)){
             element.classList.add('bomb');
+            score_smile.classList.remove('emoji');
+            score_smile.classList.add('dizzy');
 
             //game over
             console.log(`'Hai perso totalizzando ${score}`);
@@ -133,9 +150,11 @@ function generateGrid(difficulty){
             //casella libera
             element.classList.add('selected');
             score++;
+            user_score.innerHTML = `${score}`;
+
             if(score === square_tot - totBombs){
 
-                console.log(`'Hai perso totalizzando ${score}`);
+                console.log(`'Hai VINTO totalizzando ${score}`);
 
                 //ricerca di tutte le bombe
                 for(let i = 1; i <= square_tot; i++){
