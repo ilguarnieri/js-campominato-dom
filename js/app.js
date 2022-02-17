@@ -41,7 +41,7 @@ function getRandom(min, max){
 //generazione grid
 function generateGrid(difficulty){
     const gridElement = document.querySelector('.grid');
-    let colums_rows;
+    let colums_rows, bombs;
 
     //impostazione colonne-righe
     switch(difficulty){
@@ -65,17 +65,7 @@ function generateGrid(difficulty){
     const square_tot = Math.pow(colums_rows, 2);
 
     //generazione bombe
-    const bombs = [];
-    while(bombs.length < 16){
-        const numbBomb = getRandom(1, square_tot);
-        if(!bombs.includes(numbBomb)){
-            bombs.push(numbBomb);
-        }
-    }
-
-    //ordinamento array
-    bombs.sort((a, b) => a - b);
-    console.log(bombs);
+    bombs = generaBombe(16, 1, square_tot);
 
     //creazione deglle celle
     for(let i = 1; i <= square_tot; i++){
@@ -102,6 +92,25 @@ function generateGrid(difficulty){
             element.classList.add('selected');
         }
     }
+    
 
     gridElement.addEventListener('click', gridCallBack);
+}
+
+//generatore bombe
+function generaBombe(totalBombs, min, max){
+
+    const arrayBombs = [];
+    do {
+        const numbBomb = getRandom(min, max);
+        if(!arrayBombs.includes(numbBomb)){
+            arrayBombs.push(numbBomb);
+        }
+    }while(arrayBombs.length < totalBombs);
+
+    //ordinamento array
+    arrayBombs.sort((a, b) => a - b);
+    console.log(arrayBombs);
+
+    return arrayBombs;
 }
