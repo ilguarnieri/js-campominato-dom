@@ -27,7 +27,7 @@ function resetGrid(){
     const score_smile = document.querySelector('.score_smile');
 
     grid_wrapper.innerHTML = '';
-    user_score.innerHTML = '';
+    user_score.innerHTML = '0';
     //impostazione border padding grid
     grid_wrapper.style.border = '0';
     grid_wrapper.style.padding = '0';
@@ -76,8 +76,10 @@ function generateBombs(totalBombs, min, max){
 //generazione grid
 function generateGrid(difficulty){
     const gridElement = document.querySelector('.grid');
+    let square_remain = document.querySelector('.square_remain');
     let colums_rows, bombs, score = 0;
     const totBombs = 16;
+    const cells = [];
 
     //impostazione colonne-righe
     switch(difficulty){
@@ -99,6 +101,9 @@ function generateGrid(difficulty){
     }
     //totale celle
     const square_tot = Math.pow(colums_rows, 2);
+    //celle libere
+    const freeSqaure = square_tot - totBombs;
+    square_remain.innerHTML = `${freeSqaure}`;
 
     //generazione bombe
     bombs = generateBombs(totBombs, 1, square_tot);
@@ -133,7 +138,7 @@ function generateGrid(difficulty){
             score_smile.classList.remove('emoji');
             score_smile.classList.add('dizzy');
 
-            //game over
+            //messaggio da visualizzare
             console.log(`'Hai perso totalizzando ${score}`);
 
             //ricerca di tutte le bombe            
@@ -143,17 +148,22 @@ function generateGrid(difficulty){
                 }
             }
 
-            //blocco listener
+            //blocco listener se trovo una bomba
             gridElement.removeEventListener('click', gridCallBack);
 
         }else{
-            //casella libera
-            element.classList.add('selected');
-            score++;
-            user_score.innerHTML = `${score}`;
+            //controllo casella
+            if(!cells.includes(numberSquare)){
+                element.classList.add('selected');
+                score++;
+                user_score.innerHTML = `${score}`;
+                cells.push(numberSquare);
+                square_remain.innerHTML = `${freeSqaure - score}`;
+            }
 
-            if(score === square_tot - totBombs){
+            if(score === freeSqaure){
 
+                //messaggio da visualizzare
                 console.log(`'Hai VINTO totalizzando ${score}`);
 
                 //ricerca di tutte le bombe
@@ -163,7 +173,7 @@ function generateGrid(difficulty){
                     }
                 }
 
-                //blocco listener
+                //blocco listener alla fine del gioco
                 gridElement.removeEventListener('click', gridCallBack);
             }
         }
