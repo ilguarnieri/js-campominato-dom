@@ -105,34 +105,35 @@ function generateGrid(difficulty){
     }
        
 
+    //click
     function gridCallBack(event){
         const element = event.target.closest('.square');
         const numberSquare = parseInt(element.dataset.number);
-        console.log(`gridCALL ${bombs}`);
+        const allBombs = document.getElementsByClassName('square');
 
+        //trovo la bomba
         if(bombs.includes(numberSquare)){
-            element.classList.add('red');
+            element.classList.add('bomb');
 
             //game over
+            console.log(`'Hai perso totalizzando ${score}`);
+
+            //ricerca di tutte le bombe            
+            for(let i = 1; i <= square_tot; i++){
+                if(bombs.includes(i)){                    
+                    allBombs[i].classList.add('bomb');
+                }
+            }
+
+            //blocco listener
+            gridElement.removeEventListener('click', gridCallBack);
         }else{
+            //casella libera
             element.classList.add('selected');
             score++;
-            //incremento score
         }
     }
 
     gridElement.addEventListener('click', gridCallBack);
 
-}
-
-
-//GAME OVER
-function gameOver(score){
-    console.log(`'Hai perso totalizzando ${score}`);
-}
-
-
-//USER WIND
-function youWin(score){
-    console.log(`'Hai vinto totalizzando ${score}`);
 }

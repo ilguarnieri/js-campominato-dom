@@ -209,7 +209,7 @@ footer{
     border-left:  3px solid rgb(123,123,123);
 }
 
-.red{
+.bomb{
     background-image: url(../img/bombs.png);
     background-repeat: no-repeat;
     background-size: contain;
