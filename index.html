@@ -20,40 +20,48 @@
     
             <div class="select-wrapper">
                 <label class="title-select" for="select_difficulty">Difficoltà</label>
-                <select name="difficulty" id="select_difficulty">
+                <select name="difficulty" id="select_difficulty" class="style-gray style_hv">
                     <option value="1">Easy</option>
                     <option value="2">Hard</option>
                     <option value="3">Crazy</option>
                 </select>
-                <button class="btn_play">PLAY</button>
+                <button class="btn_play style-gray style_hv">PLAY</button>
             </div>
         </div>
     </header>
 
     <main>
+        <!-- PUNTEGGIO -->
         <section class="score-wrapper d-none">
-
-            <div class="score_div">
+            <!-- PUNTEGGIO USER -->
+            <div class="score_div style_black">
                 <p class="user_score">0</p>
             </div>
 
-            <div class="score_smile emoji">
-                
+            <!-- EMOJI -->
+            <div class="score_emoji">
+
             </div>
 
-            <div class="score_div">
+            <!-- CELLE RIMANENTI -->
+            <div class="score_div style_black">
                 <p class="square_remain">0</p>
             </div>
         </section>
-         
-        <section class="grid-wrapper">
+
+        <!-- scritta iniziale -->         
+        <section class="grid-wrapper style-gray">
             <h1><i class="fas fa-bomb"></i> Seleziona in alto una difficoltà <i class="fas fa-bomb"></i></h1>
+        </section>
+
+        <!-- soluzioni -->
+        <section class="solution style_black d-none">            
         </section>
     </main>
 
     <footer>
         <div class="footer-author">
-            <p>By <span class="author_name">Angelo Guarnieri</span></p>
+            <a href="https://www.flowcode.com/page/ilguarnieri" target="_blank"><p>By <span class="author_name">Angelo Guarnieri</span></p></a>
         </div>
     </footer>
 
