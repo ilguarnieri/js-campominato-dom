@@ -125,7 +125,7 @@ function generateGrid(difficulty){
 
     //generazione bombe
     bombs = generateBombs(totBombs, 1, square_tot);
-    console.log(bombs);
+    /* console.log(bombs); */
 
     //creazione deglle celle
     for(let i = 1; i <= square_tot; i++){
