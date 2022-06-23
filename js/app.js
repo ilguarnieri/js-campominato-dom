@@ -125,7 +125,7 @@ function generateGrid(difficulty){
 
     //generazione bombe
     bombs = generateBombs(totBombs, 1, square_tot);
-    /* console.log(bombs); */
+    console.log(bombs);
 
     //creazione deglle celle
     for(let i = 1; i <= square_tot; i++){
@@ -140,6 +140,138 @@ function generateGrid(difficulty){
         
         gridElement.append(square);
     }
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+    const arrayNumberSingleBomb = [];
+    const n = colums_rows;
+    const nn = colums_rows + 1;
+    
+    for(let i = 0; i <= bombs.length; i++){
+        
+        const bomb = bombs[i];
+        const bombpre = bombs[i - 1];
+
+       /*  if(bomb % n == 0 ){
+
+            arrayNumberSingleBomb.push(bomb - n - 1);
+            arrayNumberSingleBomb.push(bomb - n);
+            
+            arrayNumberSingleBomb.push(bomb - 1);
+            
+            arrayNumberSingleBomb.push(bomb + n - 1);
+            arrayNumberSingleBomb.push(bomb + n);
+
+        }
+         */
+        
+        
+        if( bomb == 1 || bomb % (n + 1) == 0){
+
+            arrayNumberSingleBomb.push(bomb - n);
+            arrayNumberSingleBomb.push(bomb - n + 1);
+            
+            arrayNumberSingleBomb.push(bomb + 1);
+            
+            arrayNumberSingleBomb.push(bomb + n);
+            arrayNumberSingleBomb.push(bomb + n + 1);
+        }
+        
+        
+        /* else{
+
+            arrayNumberSingleBomb.push(bomb - n - 1);
+            arrayNumberSingleBomb.push(bomb - n);
+            arrayNumberSingleBomb.push(bomb - n + 1);
+            
+            arrayNumberSingleBomb.push(bomb - 1);
+            arrayNumberSingleBomb.push(bomb + 1);
+            
+            arrayNumberSingleBomb.push(bomb + n - 1);
+            arrayNumberSingleBomb.push(bomb + n);
+            arrayNumberSingleBomb.push(bomb + n + 1);        
+        }     */
+        
+        
+
+    }
+
+
+
+
+    console.log(arrayNumberSingleBomb);
+    
+    
+
+
+
+
+
+
+
+
+
+    
+    const arrayAllNumbers = [];
+    
+    for(let j = 0; j <= arrayNumberSingleBomb.length; j++){
+        
+        const number = arrayNumberSingleBomb[j];
+        
+        if(number > 0 && number <= square_tot && !bombs.includes(number)){
+
+            arrayAllNumbers.push(number);
+        }
+    }
+
+    console.log(arrayAllNumbers);
+
+
+
+    for(let k = 0; k <= arrayAllNumbers.length; k++){
+
+        const cells = document.getElementsByClassName('square');
+
+        const yy = arrayAllNumbers[k];
+
+        for(let q = 0; q < square_tot; q++){
+
+            if(cells[q].dataset.number == yy){
+
+                cells[q].textContent += 1;
+            }
+
+
+        }
+
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //click casella
     gridElement.addEventListener('click', gridCallBack);
@@ -242,3 +374,8 @@ function generateGrid(difficulty){
         }
     }
 }
+
+
+
+
+
